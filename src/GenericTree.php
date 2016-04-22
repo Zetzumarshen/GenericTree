@@ -15,6 +15,12 @@ class GenericTree {
 		$this->root = new Node();
 	}
 
+	/**
+	 * Inserting object to tree
+	 * 
+	 * @param array $indexes array() is inserting to root, array(1) inserting to root->first child 
+	 * @param unknown $value can be anything
+	 */
 	public function insert(Array $indexes, $value) {
 		$newNode = new Node($value);
 		$currentNode = $this->root;
@@ -34,6 +40,14 @@ class GenericTree {
 		}
 	}
 
+	/**
+	 * Traverse the tree while applying function.
+	 * https://en.wikipedia.org/wiki/Tree_traversal#Generic_tree
+	 * 
+	 * @param callable $preOp 0 argument
+	 * @param callable $inOp 1 argument
+	 * @param callable $postOp 0 argumen
+	 */
 	public function inOrder(Callable $preOp, Callable $inOp, Callable $postOp) {
 		$this->_inOrder($this->root, $preOp, $inOp, $postOp);
 	}
