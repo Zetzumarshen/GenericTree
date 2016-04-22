@@ -43,7 +43,7 @@ Or alternatively you can remove this line in `GenericTree.php` and `Node.php`:
 namespace DimasP\GenericTree;
 ~~~
 
-and remove this line in `Node.php`:
+and this line:
 
 ~~~
 use Exception;
