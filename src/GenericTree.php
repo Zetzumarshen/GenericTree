@@ -53,39 +53,3 @@ class GenericTree {
 		}
 	}
 }
-
-/*
-class GenericTreeTest {
-
-	public function StartTest() {
-		try {
-			echo "Starting Test. <br>";
-			$preOp = function () {
-				echo "( ";
-			};
-			$inOp = function ($arg) {
-				echo " $arg ";
-			};
-			$postOp = function () {
-				echo " )";
-			};
-			$tree = new GenericTree();
-			$tree->insert(array (), "1");
-			$tree->insert(array (), "2");
-			$tree->insert(array (), "3");
-			$tree->insert(array (), "4");
-			$tree->insert(array (3), "4,1");
-			$tree->insert(array (3), "4,2");
-			$tree->insert(array (2), "3,1");
-			$tree->insert(array (2, 0), "3,1,1");
-			echo $tree->inOrder($preOp, $inOp, $postOp);
-			echo "<br> Ending Test.";
-			echo "<br>". __NAMESPACE__;
-		} catch ( Exception $e ) {
-			
-		}
-	}
-}
-
-$gt = new GenericTreeTest();
-$gt->startTest();*/
