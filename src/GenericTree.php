@@ -7,6 +7,13 @@ use Exception;
 // TODO: how to make this using require(). phpunit doesn't like like require().
 require_once "node.php"; 
 
+/**
+ * N-ary tree i.e. Generic Tree class
+ * https://en.wikipedia.org/wiki/K-ary_tree
+ *
+ * @license https://opensource.org/licenses/MIT
+ * @author Dimas Prameshwara
+ */
 class GenericTree {
 
 	public $root;
