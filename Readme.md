@@ -3,7 +3,7 @@ N-ary tree with higher order function while traversing.
 
 ## Requirements
 
-* PHP 5.3.0 or later
+* PHP 5.4.0 or later
 
 ## Usage:
 
