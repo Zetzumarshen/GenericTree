@@ -11,7 +11,7 @@ spl_autoload_register(function ($className) {
         $className = str_replace($namespace, '', $className);
         $fileName = __DIR__ . '/' . str_replace('\\', '/', $className) . '.php';
         if (file_exists($fileName)) {
-            require($fileName);
+            require_once($fileName);
         }
     }
 });
