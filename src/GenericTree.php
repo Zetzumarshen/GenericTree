@@ -39,17 +39,12 @@ class GenericTree {
 	}
 
 	private function _inOrder(Node $n, Callable $preOp, Callable $inOp, Callable $postOp) {
-		try {
-			$preOp();
-			for($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
-				$nodeValue = $n->getChild($index)->value;
-				$inOp($nodeValue);
-				$this->_inOrder($n->getChild($index), $preOp, $inOp, $postOp);
-			}
-			$postOp();
-		} catch ( Exception $e ) {
-			$msg = $e->message();
-			throw new Exception("inOrder failed \n $msg");
+		$preOp();
+		for($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
+			$nodeValue = $n->getChild($index)->value;
+			$inOp($nodeValue);
+			$this->_inOrder($n->getChild($index), $preOp, $inOp, $postOp);
 		}
+		$postOp();
 	}
 }
