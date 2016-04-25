@@ -1,5 +1,15 @@
 {
-	"require" : {
-		"phpunit/phpunit" : "5.3.*"
-	}
+    "name": "dimasp/generictree",
+    "description": "N-ary Tree",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dimas Prameshwara",
+            "email": "zetzumarshen@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "phpinit" : "5.3.2"
+    }
 }
