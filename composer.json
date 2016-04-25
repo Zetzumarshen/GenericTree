@@ -8,8 +8,6 @@
             "email": "zetzumarshen@gmail.com"
         }
     ],
-    "version": "1.0.0" ,
-    "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0"
     },
