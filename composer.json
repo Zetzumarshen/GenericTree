@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DimasP\\GenericTree": "src/"
+            "DimasP\\GenericTree\\": "src/"
         }
     }
 }
