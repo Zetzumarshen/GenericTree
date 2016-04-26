@@ -72,5 +72,11 @@ class GenericTreeTest extends \PHPUnit_Framework_TestCase {
 		$tree = new GenericTree();
 		$tree->insert(array(1), "exc");
 	}
+	
+	public function test_setTree(){
+	    $n = $this->treeProvider();
+	    $n->setNode(array(2,0), "changed");
+	    $this->assertEquals($n->root->getChild(2)->getChild(0)->value, "changed");
+	}
 }
 

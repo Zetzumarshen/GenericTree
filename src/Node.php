@@ -47,7 +47,7 @@ class Node {
 
 	/**
 	 * set child(array) at index to a value.
-	 * children[$index] = $newNode
+	 * children[$index] = $value
 	 * 
 	 * @param integer $index
 	 * @param Node $newNode
