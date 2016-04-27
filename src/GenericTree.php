@@ -125,7 +125,6 @@ class GenericTree
     public function getNodeValue (Array $indexes)
     {
         $currentNode = $this->root;
-        $temporary;
         $this->_getNode($currentNode, $indexes, $temporary);
         return $temporary;
     }
