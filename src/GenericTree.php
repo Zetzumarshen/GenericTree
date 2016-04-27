@@ -82,7 +82,8 @@ class GenericTree
 
     /**
      * Change a node value
-     * A mask of $instance->root->getChild(lv0)->getChild(lv1)->...->value = $newValue
+     * A mask of $instance->root->getChild(lv0)->getChild(lv1)->...->value =
+     * $newValue
      *
      * @param array $indexes
      *            array(0) = first element, array(0,0) first element of first
@@ -90,7 +91,7 @@ class GenericTree
      * @param unknown $value
      *            can be anything
      */
-    public function setNode (Array $indexes, $value)
+    public function setNodeValue (Array $indexes, $value)
     {
         $newNode = new Node($value);
         $currentNode = $this->root;
@@ -99,17 +100,43 @@ class GenericTree
 
     private function _setNode (Node $currentNode, Node $newNode, Array $indexes)
     {
+        if ($currentNode->getSizeOfChildren() === 0 && sizeof($indexes) > 0) {
+            throw new Exception('insert failed, $indexes level out of bounds');
+        }
+        $index = array_shift($indexes);
         if (sizeof($indexes) > 0) {
-            if ($currentNode->getSizeOfChildren() === 0) {
-                throw new Exception('insert failed, $indexes level out of bounds');
-            }
-            $index = array_shift($indexes);
-            if (sizeof($indexes) > 0) {
-                $currentNode = $currentNode->getChild($index);
-                $this->_setNode($currentNode, $newNode, $indexes);
-            } else {
-                $currentNode->setChild($index, $newNode);
-            }
+            $currentNode = $currentNode->getChild($index);
+            $this->_setNode($currentNode, $newNode, $indexes);
+        } else {
+            $currentNode->setChild($index, $newNode);
+        }
+    }
+
+    /**
+     * Get a node value
+     * A mask for return $instance->root->getChild()->getChild()->...->value
+     * 
+     * @param array $indexes
+     *            array(0) = first element, array(0,0) first element of first
+     *            child
+     * @param unknown $value
+     *            can be anything
+     */
+    public function getNodeValue (Array $indexes)
+    {
+        $currentNode = $this->root;
+        $temporary;
+        $this->_getNode($currentNode, $indexes, $temporary);
+        return $temporary;
+    }
+
+    private function _getNode (Node $currentNode, Array $indexes, &$temporary)
+    {
+        $index = array_shift($indexes);
+        if (sizeof($indexes) === 0 ){
+            $temporary = $currentNode->getChild($index)->value;
+        } else {
+            $this->_getNode($currentNode->getChild($index),$indexes, $temporary);
         }
     }
 }
