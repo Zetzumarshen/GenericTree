@@ -37,7 +37,7 @@ class Node {
 	 * @throws Exception
 	 * @return Node $child
 	 */
-	public function getChild($index) {
+	public function &getChild($index) {
 		if ($index < sizeof($this->children)) {
 			return $this->children [$index];
 		} else {

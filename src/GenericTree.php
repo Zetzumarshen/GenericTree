@@ -58,11 +58,11 @@ class GenericTree
      * https://en.wikipedia.org/wiki/Tree_traversal#Generic_tree
      *
      * @param callable $preOp
-     *            0 argument
+     *            0 argument, accessing Node->value
      * @param callable $inOp
-     *            1 argument
+     *            1 argument, accessing Node->value
      * @param callable $postOp
-     *            0 argumen
+     *            0 argument, accessing Node->value
      */
     public function inOrder (Callable $preOp, Callable $inOp, Callable $postOp)
     {
@@ -73,13 +73,43 @@ class GenericTree
     {
         $preOp();
         for ($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
-            $nodeValue = $n->getChild($index)->value;
-            $inOp($nodeValue);
+            $nodeValue =& $n->getChild($index);
+            $inOp($nodeValue->value);
             $this->_inOrder($n->getChild($index), $preOp, $inOp, $postOp);
         }
         $postOp();
     }
 
+    /**
+     * Traverse the tree while applying function.
+     * https://en.wikipedia.org/wiki/Tree_traversal#Generic_tree
+     *
+     * @param callable $preOp
+     *            1 argument, accessing Parent Node
+     * @param callable $inOp
+     *            1 argument, accessing Child Node
+     * @param callable $postOp
+     *            1 argument, accessing Parent Node
+     */
+    public function inOrder2 (Callable $preOp, Callable $inOp, Callable $postOp)
+    {
+        $this->_inOrder2($this->root, $preOp, $inOp, $postOp);
+    }
+    
+    private function _inOrder2 (Node &$n, Callable $preOp, Callable $inOp, Callable $postOp)
+    {
+        $preOp($n);
+        for ($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
+            $node =& $n->getChild($index);
+            $inOp($node);
+        }
+        for ($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
+            $node =& $n->getChild($index);
+            $this->_inOrder2($n->getChild($index), $preOp, $inOp, $postOp);
+        }
+        $postOp($n);
+    }
+    
     /**
      * Change a node value
      * A mask of $instance->root->getChild(lv0)->getChild(lv1)->...->value =

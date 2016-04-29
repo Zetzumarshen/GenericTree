@@ -106,5 +106,39 @@ class GenericTreeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("2", $n->getNodeValue(array(1)));
         $this->assertEquals("changed", $n->getNodeValue(array(2,0)));
     }
-}
 
+    public function test_inOrderWithReference ()
+    {
+        $tr = $this->treeProvider();
+        $glob = "";
+        $inOp = function  ($children) use ( &$glob)
+        {
+            $val = $children->value;
+            if ($children->getSizeOfChildren() === 0) {
+                $glob .= "<option>$val</option>";
+            }
+        };
+        $preOp = function  ($children) use ( &$glob)
+        {
+            $val = $children->value;
+            if ($children->getSizeOfChildren() > 0) {
+                $glob .= "<optgroup label='$val'>";
+            }
+        };
+        $postOp = function  ($children) use ( &$glob)
+        {
+            $val = $children->value;
+            if ($children->getSizeOfChildren() > 0) {
+                $glob .= "</optgroup>";
+            }
+        };
+        $expectedOutput = <<<EOD
+<optgroup label=''><option>1</option><option>2</option><optgroup label='3'><optgroup label='3,1'><option>3,1,1</option></optgroup></optgroup><optgroup label='4'><option>4,1</option><option>4,2</option></optgroup></optgroup>
+EOD;
+        
+        preg_replace("/\r|\n/", "", trim($glob));
+        $tr->inOrder2($preOp, $inOp, $postOp);
+        $this->assertContains($glob, $expectedOutput);
+    }
+}
+?>
