@@ -85,26 +85,29 @@ class GenericTree
      * https://en.wikipedia.org/wiki/Tree_traversal#Generic_tree
      *
      * @param callable $preOp
-     *            2 arguments, node and depth, accessing Parent Node
+     *            1 argument, accessing Parent Node
      * @param callable $inOp
-     *            2 arguments, node and depth, accessing Child Node
+     *            1 argument, accessing Child Node
      * @param callable $postOp
-     *            2 arguments, node and depth, accessing Parent Node
+     *            1 argument, accessing Parent Node
      */
     public function inOrder2 (Callable $preOp, Callable $inOp, Callable $postOp)
     {
-        $this->_inOrder2($this->root, $preOp, $inOp, $postOp, 0);
+        $this->_inOrder2($this->root, $preOp, $inOp, $postOp);
     }
     
-    private function _inOrder2 (Node &$n, Callable $preOp, Callable $inOp, Callable $postOp, $depth)
+    private function _inOrder2 (Node &$n, Callable $preOp, Callable $inOp, Callable $postOp)
     {
-        $preOp($n, $depth);
+        $preOp($n);
         for ($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
             $node =& $n->getChild($index);
-            $inOp($node, $depth);
-            $this->_inOrder2($n->getChild($index), $preOp, $inOp, $postOp, $depth++);
+            $inOp($node);
         }
-        $postOp($n,$depth);
+        for ($index = 0; $index < $n->getSizeOfChildren(); $index ++) {
+            $node =& $n->getChild($index);
+            $this->_inOrder2($n->getChild($index), $preOp, $inOp, $postOp);
+        }
+        $postOp($n);
     }
     
     /**
