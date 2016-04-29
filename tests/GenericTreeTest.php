@@ -111,21 +111,21 @@ class GenericTreeTest extends \PHPUnit_Framework_TestCase
     {
         $tr = $this->treeProvider();
         $glob = "";
-        $inOp = function  ($children) use ( &$glob)
+        $inOp = function  ($children, $depth) use ( &$glob)
         {
             $val = $children->value;
             if ($children->getSizeOfChildren() === 0) {
                 $glob .= "<option>$val</option>";
             }
         };
-        $preOp = function  ($children) use ( &$glob)
+        $preOp = function  ($children, $depth) use ( &$glob)
         {
             $val = $children->value;
             if ($children->getSizeOfChildren() > 0) {
                 $glob .= "<optgroup label='$val'>";
             }
         };
-        $postOp = function  ($children) use ( &$glob)
+        $postOp = function  ($children, $depth) use ( &$glob)
         {
             $val = $children->value;
             if ($children->getSizeOfChildren() > 0) {
